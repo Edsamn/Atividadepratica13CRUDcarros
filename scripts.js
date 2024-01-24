@@ -2,7 +2,7 @@ let carros = [];
 
 function telaInicial() {
 	alert(
-		`Bem-vindo ao sistema de CRUD de veículos: No momento o sistema tem ${carros.length} carros cadastrados. Escolha uma das opções para interagir com o sistema:`
+		`Bem-vindo ao sistema de CRUD de veículos: No momento o sistema tem ${carros.length} carro(s) cadastrados. Escolha uma das opções para interagir com o sistema:`
 	);
 }
 telaInicial();
@@ -32,11 +32,15 @@ function sistemaCrud() {
 				carros.push(carro);
 			}
 			criarCarro();
+			telaInicial();
+			sistemaCrud();
 		} else if (escolha === 2) {
 			function listarCarros() {
 				console.log(carros);
 			}
 			listarCarros();
+			telaInicial();
+			sistemaCrud();
 		} else if (escolha === 3) {
 			let marcaCarro = prompt("Digite a marca que deseja filtrar.");
 			let filtroMarca = carros.filter(
@@ -44,10 +48,27 @@ function sistemaCrud() {
 			);
 			console.log(filtroMarca);
 		} else if (escolha === 4) {
-			let idCarro = prompt(
-				"Digite o identificador do veículo que deseja atualizar."
+			let idAtualizar = Number(
+				prompt(
+					"Digite o identificador(id) do veículo que deseja atualizar."
+				)
 			);
+			let filtroIdAtualizar = carros.filter(
+				(carro) => carro.id === idAtualizar
+			);
+			if (condition) {
+			}
 		} else if (escolha === 5) {
+			let idApagar = Number(
+				prompt(
+					"Digite o identificador(id) do veículo que deseja apagar."
+				)
+			);
+			let filtroIdApagar = carros.filter(
+				(carro) => carro.id === idApagar
+			);
+			if (condition) {
+			}
 		} else if (escolha < 1 || escolha > 6) {
 			alert("Comando inválido");
 			telaInicial();

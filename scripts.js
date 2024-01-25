@@ -28,7 +28,7 @@ function sistemaCrud() {
         carro.marca = prompt("Digite a marca do carro");
         carro.ano = prompt("Digite o ano do carro");
         carro.cor = prompt("Digite o cor do carro");
-        carro.valor = prompt("Digite o valor do carro");
+        carro.valor = Number(prompt("Digite o valor do carro"));
         carros.push(carro);
       }
       criarCarro();

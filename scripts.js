@@ -13,11 +13,11 @@ function sistemaCrud() {
 	do {
 		escolha = Number(
 			prompt(`Digite 1 para cadastrar veículo;
-	Digite 2 para listar os veículos;
-	Digite 3 para filtrar veículos por marca;
-	Digite 4 para atualizar veículo;
-	Digite 5 para remover veículo;
-	Digite 6 para sair do sitema;`)
+					Digite 2 para listar os veículos;
+					Digite 3 para filtrar veículos por marca;
+					Digite 4 para atualizar veículo;
+					Digite 5 para remover veículo;
+					Digite 6 para sair do sitema;`)
 		);
 
 		if (escolha === 1) {
@@ -43,31 +43,55 @@ function sistemaCrud() {
 			sistemaCrud();
 		} else if (escolha === 3) {
 			let marcaCarro = prompt("Digite a marca que deseja filtrar.");
-			let filtroMarca = carros.filter(
-				(carro) => carro.marca === marcaCarro
-			);
-			console.log(filtroMarca);
+			carros
+				.filter((carro) => {
+					return carro.marca === marcaCarro;
+				})
+				.map((carro) => {
+					carro.id, carro.modelo, carro.cor, carro.valor;
+					console.log(carro.id, carro.modelo, carro.cor, carro.valor);
+				});
+			//TODO console.table
 		} else if (escolha === 4) {
-			let idAtualizar = Number(
+			let numeroIdAtualizar = Number(
 				prompt(
 					"Digite o identificador(id) do veículo que deseja atualizar."
 				)
 			);
-			let filtroIdAtualizar = carros.filter(
-				(carro) => carro.id === idAtualizar
-			);
-			if (condition) {
+			if () {
+			let filtroCarros = carros.filter((carro) => {
+				return carro.id === numeroIdAtualizar;
+			});
+			
+				filtroCarros.map((carro) => {
+					carro.cor = prompt("Digite a nova cor do carro");
+					carro.valor = prompt("Digite o novo preço do carro");
+					console.log(carros);
+				});
+			} else {
+				alert(
+					"Veículo, não encontrado. O usuário deve voltar para o menu inicial depois"
+				);
+				telaInicial();
+				sistemaCrud();
 			}
 		} else if (escolha === 5) {
-			let idApagar = Number(
+			let numeroIdApagar = Number(
 				prompt(
 					"Digite o identificador(id) do veículo que deseja apagar."
 				)
 			);
-			let filtroIdApagar = carros.filter(
-				(carro) => carro.id === idApagar
+			let acharIndexId = carros.findIndex(
+				(carro) => carro.id === numeroIdApagar
 			);
-			if (condition) {
+			if (acharIndexId === true) {
+				let carros = delete carros[acharIndexId];
+			} else {
+				alert(
+					"Veículo não encontrado. O usuário deve voltar para o menu inicial."
+				);
+				telaInicial();
+				sistemaCrud();
 			}
 		} else if (escolha < 1 || escolha > 6) {
 			alert("Comando inválido");
@@ -77,8 +101,3 @@ function sistemaCrud() {
 	} while (escolha !== 6);
 }
 sistemaCrud();
-
-// while (escolha === 6) {
-// 	telaInicial();
-// 	sistemaCrud();
-// }

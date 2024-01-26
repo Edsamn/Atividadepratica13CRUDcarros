@@ -13,13 +13,12 @@ function sistemaCrud() {
   do {
     escolha = Number(
       prompt(`Digite 1 para cadastrar veículo;
-					Digite 2 para listar os veículos;
-					Digite 3 para filtrar veículos por marca;
-					Digite 4 para atualizar veículo;
-					Digite 5 para remover veículo;
-					Digite 6 para sair do sitema;`)
+					    Digite 2 para listar os veículos;
+					    Digite 3 para filtrar veículos por marca;
+					    Digite 4 para atualizar veículo;
+					    Digite 5 para remover veículo;
+					    Digite 6 para sair do sitema;`)
     );
-
     if (escolha === 1) {
       function criarCarro() {
         let carro = {};
@@ -36,25 +35,39 @@ function sistemaCrud() {
       sistemaCrud();
     } else if (escolha === 2) {
       function listarCarros() {
-        carros.map((carro) => {
-          carro.id, carro.modelo, carro.marca, carro.ano, carro.cor, carro.valor;
-          console.log(carro.id, "|", carro.modelo, "|", carro.marca, "|", carro.ano, "|", carro.cor, "|", carro.valor, "|");
-        });
+        let carrosMap = carros.map((carro) => ({
+          id: carro.id,
+          modelo: carro.modelo,
+          marca: carro.marca,
+          ano: carro.ano,
+          cor: carro.cor,
+          valor: carro.valor,
+        }));
+        carrosMap
+          .sort((a, b) => a.valor - b.valor)
+          .forEach((carro) => {
+            console.log(carro.id, "|", carro.modelo, "|", carro.marca, "|", carro.ano, "|", carro.cor, "|", carro.valor, "|");
+          });
       }
       listarCarros();
       telaInicial();
       sistemaCrud();
     } else if (escolha === 3) {
       let marcaCarro = prompt("Digite a marca que deseja filtrar.");
-      carros
-        .filter((carro) => {
-          return carro.marca === marcaCarro;
-        })
-        .map((carro) => {
-          carro.id, carro.modelo, carro.cor, carro.valor;
-          console.log(carro.id, "|", carro.modelo, "|", carro.cor, "|", carro.valor);
+      carros.filter((carro) => {
+        return carro.marca === marcaCarro;
+      });
+      let carrosMap = carros.map((carro) => ({
+        id: carro.id,
+        modelo: carro.modelo,
+        cor: carro.cor,
+        valor: carro.valor,
+      }));
+      carrosMap
+        .sort((a, b) => a.valor - b.valor)
+        .forEach((carro) => {
+          console.log(carro.id, "|", carro.modelo, "|", carro.cor, "|", carro.valor, "|");
         });
-      //TODO console.table
     } else if (escolha === 4) {
       let numeroIdAtualizar = Number(prompt("Digite o identificador(id) do veículo que deseja atualizar."));
       let filtroCarrosAtualizar = carros.filter((carro) => {
@@ -64,7 +77,6 @@ function sistemaCrud() {
         filtroCarrosAtualizar.map((carro) => {
           carro.cor = prompt("Digite a nova cor do carro");
           carro.valor = prompt("Digite o novo preço do carro");
-          console.log(carros);
         });
       } else {
         alert("Veículo, não encontrado. O usuário deve voltar para o menu inicial depois");
@@ -73,19 +85,16 @@ function sistemaCrud() {
       }
     } else if (escolha === 5) {
       let numeroIdApagar = Number(prompt("Digite o identificador(id) do veículo que deseja apagar."));
-      let filtroCarrosApagar = carros.filter((carro) => {
-        return carro.id === numeroIdApagar;
-      });
-      let acharIndexApagar = carros.findIndex((carro) => carro.id);
-      if (filtroCarrosApagar.find((carro) => carro.id === numeroIdApagar)) {
+      let acharIndexApagar = carros.findIndex((carro) => carro.id === numeroIdApagar);
+      if (acharIndexApagar !== -1) {
         carros.splice(acharIndexApagar, 1);
+        telaInicial();
+        sistemaCrud();
       } else {
         alert("Veículo não encontrado. O usuário deve voltar para o menu inicial.");
         telaInicial();
         sistemaCrud();
       }
-      telaInicial();
-      sistemaCrud();
     } else if (escolha < 1 || escolha > 6) {
       alert("Comando inválido");
       telaInicial();

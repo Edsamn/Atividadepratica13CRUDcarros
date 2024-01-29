@@ -12,12 +12,14 @@ let escolha = 0;
 function sistemaCrud() {
   do {
     escolha = Number(
-      prompt(`Digite 1 para cadastrar veículo;
-					    Digite 2 para listar os veículos;
-					    Digite 3 para filtrar veículos por marca;
-					    Digite 4 para atualizar veículo;
-					    Digite 5 para remover veículo;
-					    Digite 6 para sair do sitema;`)
+      prompt(
+        `Digite 1 para cadastrar veículo;
+				 Digite 2 para listar os veículos;
+				 Digite 3 para filtrar veículos por marca;
+				 Digite 4 para atualizar veículo;
+				 Digite 5 para remover veículo;
+				 Digite 6 para sair do sitema;`
+      )
     );
     if (escolha === 1) {
       function criarCarro() {
@@ -27,7 +29,7 @@ function sistemaCrud() {
         carro.marca = prompt("Digite a marca do carro");
         carro.ano = prompt("Digite o ano do carro");
         carro.cor = prompt("Digite o cor do carro");
-        carro.valor = Number(prompt("Digite o valor do carro"));
+        carro.valor = prompt("Digite o valor do carro");
         carros.push(carro);
       }
       criarCarro();
@@ -54,19 +56,19 @@ function sistemaCrud() {
       sistemaCrud();
     } else if (escolha === 3) {
       let marcaCarro = prompt("Digite a marca que deseja filtrar.");
-      carros.filter((carro) => {
-        return carro.marca === marcaCarro;
-      });
-      let carrosMap = carros.map((carro) => ({
-        id: carro.id,
-        modelo: carro.modelo,
-        cor: carro.cor,
-        valor: carro.valor,
-      }));
-      carrosMap
+      carros
+        .filter((carro) => {
+          return carro.marca === marcaCarro;
+        })
+        .map((carro) => ({
+          id: carro.id,
+          modelo: carro.modelo,
+          cor: carro.cor,
+          valor: carro.valor,
+        }))
         .sort((a, b) => a.valor - b.valor)
         .forEach((carro) => {
-          console.log(carro.id, "|", carro.modelo, "|", carro.cor, "|", carro.valor, "|");
+          console.log(carro.id, "|", carro.modelo, "|", carro.cor, "|", carro.valor);
         });
     } else if (escolha === 4) {
       let numeroIdAtualizar = Number(prompt("Digite o identificador(id) do veículo que deseja atualizar."));
